@@ -1,0 +1,32 @@
+<div class="w-100 border-bottom">
+    <div class="container py-3">
+        <div class="d-flex justify-content-end align-items-center py-2">
+            <ng-container *ngIf="isEmpty(userInfo) || undefined">
+                <div class="mr-2 d-flex align-items-center">
+                    <input matInput type="text" [(ngModel)]="username" placeholder="User name">
+                    @if (username) {
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="username=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+                </div>
+                
+                <div class="mr-2 d-flex align-items-center">
+                    <input matInput type="text" [(ngModel)]="passWord" placeholder="password">
+                    @if (passWord) {
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="passWord=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }        
+                </div>
+            </ng-container>
+            
+    
+            <div class="d-flex align-items-center">
+                <button mat-button aria-label="Login" (click)="isEmpty(userInfo) ? login() : logout()">{{isEmpty(userInfo) ? 'login' : 'logout'}}</button>
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+<div class="container">
+    <div class="acton-block d-flex align-items-center justify-content-between" *ngIf="!isEmpty(this.userInfo)">
+        <div class="action-select-block d-flex">
+            <mat-form-field>
+                <mat-label>Block Number</mat-label>
+                <mat-select>
+                    @for (item of blockNumberList; track item) {
+                    <mat-option [value]="item" (click)="filter(item, 'block_number')">{{item}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Land Number</mat-label>
+                <mat-select>
+                    @for (item of landNumberList; track item) {
+                    <mat-option [value]="item" (click)="filter(item, 'land_number')">{{item}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Min price</mat-label>
+                <mat-select>
+                    @for (item of priceIncrease; track item) {
+                    <mat-option [value]="item" (click)="filter(item, 'min_price')">{{item}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Max price</mat-label>
+                <mat-select>
+                    @for (item of priceDecrease; track item) {
+                        <mat-option [value]="item" (click)="filter(item, 'max_price')">{{item}}</mat-option>
+                        }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="action-btn-block">
+            <button mat-stroked-button (click)="createHouse()">Create new house</button>
+        </div>
+    </div>
+
+    <div class="content-block">
+
+        <mat-accordion class="item-block" *ngFor="let houseModel of houseModelList">
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>House model {{houseModel.attributes?.model}} - House type
+                        {{houseModel.attributes?.house_type}}</mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="content-item-block d-flex flex-column">
+                    <div class="d-flex">
+                        <div class="info-item d-flex flex-column">
+                            <div class="header-item">
+                                <h2> {{houseModel.attributes?.media?.title}}</h2>
+                            </div>
+                            <div class="description">
+                                <p>{{houseModel.attributes?.media?.description}}</p>
+                            </div>
+                        </div>
+                        <div class="image">
+                            <!-- houseModel.attributes?.media?.banner || -->
+                            <img [src]="defaultImg"/>
+                        </div>
+                    </div>
+
+                    <div class="details-item">
+                        <section class="example-container mat-elevation-z8" tabindex="0">
+                            <table mat-table [dataSource]="houseModel.houseList">
+
+                                <!--  House number  Column -->
+                                <ng-container matColumnDef="house_number">
+                                    <th mat-header-cell *matHeaderCellDef> House number </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.attributes?.house_number}} </td>
+                                </ng-container>
+
+                                <!-- Block No Column -->
+                                <ng-container matColumnDef="block_number">
+                                    <th mat-header-cell *matHeaderCellDef> Block No </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.attributes?.block_number}} </td>
+                                </ng-container>
+
+                                <!-- Land No Column -->
+                                <ng-container matColumnDef="land_number">
+                                    <th mat-header-cell *matHeaderCellDef> Land No </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.attributes?.land_number}} </td>
+                                </ng-container>
+
+                                <!-- Price Column -->
+                                <ng-container matColumnDef="price">
+                                    <th mat-header-cell *matHeaderCellDef> Price </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.attributes?.price}} </td>
+                                </ng-container>
+
+                                <!-- Status Column -->
+                                <ng-container matColumnDef="status">
+                                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.attributes?.status}} </td>
+                                </ng-container>
+
+                                <!-- Action Column -->
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                                    <td mat-cell *matCellDef="let element"> <a [routerLink]="['/house-details/'+ element.id]" routerLinkActive="router-link-active" >Edit</a> </td>
+                                </ng-container>
+
+                                <ng-container  *ngIf="houseModel.houseList.length === 0" matColumnDef="disclaimer">
+                                    <td mat-footer-cell *matFooterCellDef colspan="2">
+                                        No data to display
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+
+                        </section>
+                    </div>
+
+
+
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </div>
+
+</div>

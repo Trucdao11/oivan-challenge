@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="d-flex align-items-center">
+        <a [routerLink]="['/']" routerLinkActive="router-link-active"> House list</a>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        <span>{{houseNumber}}</span>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>{{houseNumber}}</h1>
+        <button mat-button aria-label="Login" (click)="save()">{{houseId ? 'Update' : 'Create'}}</button>
+    </div>
+    <div class="house-info row">
+        <div class="col-3">
+            <mat-form-field appearance="outline">
+                <mat-label>House Number</mat-label>
+                <input matInput placeholder="Placeholder" [(ngModel)]="houseInfo.attributes.house_number">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint style="color: red;"
+                    *ngIf="isCheckExistHouseNumber(houseInfo.attributes.house_number) && !houseId">Your house number is
+                    already used</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Block number</mat-label>
+                <input matInput placeholder="Placeholder" [(ngModel)]="houseInfo.attributes.block_number">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Land number</mat-label>
+                <input matInput placeholder="Placeholder" [(ngModel)]="houseInfo.attributes.land_number">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field>
+                <mat-label>House type</mat-label>
+                <mat-select [(ngModel)]="houseInfo.attributes.house_type">
+                    <mat-option value="apartment">Apartment</mat-option>
+                    <mat-option value="townhouse">Townhouse</mat-option>
+                    <mat-option value="villa">Villa</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field>
+                <mat-label>House model</mat-label>
+                <mat-select [(ngModel)]="houseInfo.attributes.model">
+                    <mat-option [value]="name" *ngFor="let name of houseModelNameList">{{name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Price</mat-label>
+                <input matInput placeholder="Placeholder" [(ngModel)]="houseInfo.attributes.price">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field>
+                <mat-label>Status</mat-label>
+                <mat-select [(ngModel)]="houseInfo.attributes.status">
+                    <mat-option value="available">Available</mat-option>
+                    <mat-option value="booked">Booked</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+</div>
